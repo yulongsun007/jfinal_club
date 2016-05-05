@@ -17,11 +17,11 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("id");
 	}
 
-	public void setMobile(java.lang.Integer mobile) {
+	public void setMobile(java.lang.String mobile) {
 		set("mobile", mobile);
 	}
 
-	public java.lang.Integer getMobile() {
+	public java.lang.String getMobile() {
 		return get("mobile");
 	}
 

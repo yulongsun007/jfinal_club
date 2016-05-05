@@ -146,61 +146,66 @@
         <comment>创建时间</comment>
         <data-type>timestamp</data-type>
       </column>
-      <key id="35" parent="5" name="PRIMARY">
+      <column id="35" parent="5" name="score">
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="36" parent="5" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="36" parent="6" name="id">
+      <column id="37" parent="6" name="id">
         <comment>编号</comment>
         <mandatory>1</mandatory>
         <data-type>int(10)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="37" parent="6" name="mobile">
+      <column id="38" parent="6" name="mobile">
         <comment>手机</comment>
         <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
+        <data-type>varchar(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="38" parent="6" name="password">
+      <column id="39" parent="6" name="password">
         <comment>密码</comment>
         <mandatory>1</mandatory>
         <data-type>varchar(64)</data-type>
       </column>
-      <column id="39" parent="6" name="job_id">
+      <column id="40" parent="6" name="job_id">
         <comment>工号</comment>
         <data-type>int(10)</data-type>
       </column>
-      <column id="40" parent="6" name="gender">
+      <column id="41" parent="6" name="gender">
         <comment>性别</comment>
         <data-type>int(1)</data-type>
       </column>
-      <column id="41" parent="6" name="name">
+      <column id="42" parent="6" name="name">
         <comment>用户名</comment>
         <data-type>varchar(20)</data-type>
       </column>
-      <column id="42" parent="6" name="addr">
+      <column id="43" parent="6" name="addr">
         <comment>地址</comment>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="43" parent="6" name="r_id">
+      <column id="44" parent="6" name="r_id">
         <comment>角色编号</comment>
         <mandatory>1</mandatory>
         <data-type>int(10)</data-type>
       </column>
-      <column id="44" parent="6" name="c_id">
+      <column id="45" parent="6" name="c_id">
         <comment>会所编号</comment>
         <mandatory>1</mandatory>
         <data-type>int(10)</data-type>
       </column>
-      <column id="45" parent="6" name="is_enable">
+      <column id="46" parent="6" name="is_enable">
         <comment>是否启用</comment>
         <data-type>int(1)</data-type>
       </column>
-      <column id="46" parent="6" name="create_time">
+      <column id="47" parent="6" name="create_time">
         <comment>创建时间</comment>
         <data-type>timestamp</data-type>
       </column>
-      <key id="47" parent="6" name="PRIMARY">
+      <key id="48" parent="6" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>

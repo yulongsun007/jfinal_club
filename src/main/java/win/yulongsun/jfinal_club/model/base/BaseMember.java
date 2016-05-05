@@ -17,11 +17,19 @@ public abstract class BaseMember<M extends BaseMember<M>> extends Model<M> imple
 		return get("id");
 	}
 
-	public void setMobile(java.lang.Integer mobile) {
+	public void setName(java.lang.String name) {
+		set("name", name);
+	}
+
+	public java.lang.String getName() {
+		return get("name");
+	}
+
+	public void setMobile(java.lang.String mobile) {
 		set("mobile", mobile);
 	}
 
-	public java.lang.Integer getMobile() {
+	public java.lang.String getMobile() {
 		return get("mobile");
 	}
 
@@ -71,6 +79,14 @@ public abstract class BaseMember<M extends BaseMember<M>> extends Model<M> imple
 
 	public java.util.Date getCreateTime() {
 		return get("create_time");
+	}
+
+	public void setScore(java.lang.Integer score) {
+		set("score", score);
+	}
+
+	public java.lang.Integer getScore() {
+		return get("score");
 	}
 
 }

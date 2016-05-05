@@ -11,21 +11,21 @@ package win.yulongsun.jfinal_club.util;
  */
 public class Response {
     private boolean error;
-    private int     errorType;
-    private String  errorMessage;
+    private int     errorCode;
+    private String  errorMsg;
     private String  result;
 
-    public void setFailureResponse(String errorMessage, int errorType) {
+    public void setFailureResponse(String errorMsg, int errorCode) {
         this.error = true;
-        this.errorType = errorType;
-        this.errorMessage = errorMessage;
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
         this.result = "";
     }
 
     public void setSuccessResponse(String result) {
         this.error = false;
-        this.errorType = 0;
-        this.errorMessage = "";
+        this.errorCode = 0;
+        this.errorMsg = "";
         this.result = result;
     }
 
@@ -37,20 +37,20 @@ public class Response {
         this.error = error;
     }
 
-    public int getErrorType() {
-        return errorType;
+    public int getErrorCode() {
+        return errorCode;
     }
 
-    public void setErrorType(int errorType) {
-        this.errorType = errorType;
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getErrorMsg() {
+        return errorMsg;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 
     public String getResult() {

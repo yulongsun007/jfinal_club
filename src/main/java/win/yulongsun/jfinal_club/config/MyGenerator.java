@@ -8,9 +8,9 @@ import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 
 /**
- * GeneratorDemo
+ * MyGenerator
  */
-public class GeneratorDemo {
+public class MyGenerator {
 	
 //	public static DataSource getDataSource() {
 ////		Prop p = PropKit.use("config.txt");
