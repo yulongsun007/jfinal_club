@@ -1,5 +1,6 @@
 package win.yulongsun.jfinal_club.model;
 
+import com.jfinal.plugin.activerecord.Page;
 import win.yulongsun.jfinal_club.model.base.BaseMember;
 
 /**
@@ -7,5 +8,9 @@ import win.yulongsun.jfinal_club.model.base.BaseMember;
  */
 @SuppressWarnings("serial")
 public class Member extends BaseMember<Member> {
-	public static final Member dao = new Member();
+    public static final Member dao = new Member();
+
+    public Page<Member> paginateByCId(String c_id, int page_num, int page_size) {
+        return paginate(page_num, page_size, "SELECT *", "FROM `member` WHERE c_id = ?", c_id);
+    }
 }

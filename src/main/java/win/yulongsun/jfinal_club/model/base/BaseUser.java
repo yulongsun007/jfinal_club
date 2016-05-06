@@ -17,6 +17,14 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("id");
 	}
 
+	public void setAvatar(java.lang.String avatar) {
+		set("avatar", avatar);
+	}
+
+	public java.lang.String getAvatar() {
+		return get("avatar");
+	}
+
 	public void setMobile(java.lang.String mobile) {
 		set("mobile", mobile);
 	}
@@ -95,6 +103,14 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 
 	public java.util.Date getCreateTime() {
 		return get("create_time");
+	}
+
+	public void setUsername(java.lang.String username) {
+		set("username", username);
+	}
+
+	public java.lang.String getUsername() {
+		return get("username");
 	}
 
 }

@@ -1,10 +1,13 @@
 package win.yulongsun.jfinal_club.controller;
 
+import com.alibaba.druid.wall.violation.ErrorCode;
 import com.jfinal.core.Controller;
 import win.yulongsun.jfinal_club.model.Club;
 import win.yulongsun.jfinal_club.model.User;
 import win.yulongsun.jfinal_club.util.Response;
 import win.yulongsun.jfinal_club.util.ValidateUtils;
+
+import java.util.List;
 
 /**
  * Created by yulongsun on 2016/4/14.
@@ -24,7 +27,7 @@ public class ManagerController extends Controller {
         String  user_pwd    = getPara("user_pwd");
         boolean isNull      = ValidateUtils.validatePara(club_name, club_scale, club_addr, user_mobile, user_name, user_pwd);
         if (isNull) {
-            response.setFailureResponse("参数不能为空", 1001);
+            response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
             return;
         }
@@ -48,7 +51,7 @@ public class ManagerController extends Controller {
         if (isUserSave && isClubSave) {
             response.setSuccessResponse(null);
         } else {
-            response.setFailureResponse("用户注册失败",1002);
+            response.setFailureResponse(Response.ErrorCode.REGISTER_FAILURE);
         }
         renderJson(response);
 
@@ -56,10 +59,28 @@ public class ManagerController extends Controller {
 
     /*登陆*/
     public void login() {
+        response = new Response();
+        String  user_mobile = getPara("user_mobile");
+        String  user_pwd    = getPara("user_pwd");
+        boolean isNull      = ValidateUtils.validatePara(user_mobile, user_pwd);
+        if (isNull) {
+            response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
+            renderJson(response);
+            return;
+        }
+        List<User> userList = User.dao.findByMobile(user_mobile);
+        if (userList.isEmpty()) {
+            response.setFailureResponse(Response.ErrorCode.USER_NULL);
+        } else if (!user_pwd.equals(userList.get(0).getPassword())) {
+            response.setFailureResponse(Response.ErrorCode.ERROR_PWD);
+        } else if (userList.get(0).getIsEnable() == 0) {
+            response.setFailureResponse(Response.ErrorCode.ERROR_UN_ENABLE);
+        } else {
+            response.setSuccessResponse(userList.get(0));
 
+        }
+        renderJson(response);
     }
 
-
-//    public void
 
 }

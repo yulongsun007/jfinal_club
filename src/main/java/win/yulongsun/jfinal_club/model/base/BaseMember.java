@@ -17,6 +17,14 @@ public abstract class BaseMember<M extends BaseMember<M>> extends Model<M> imple
 		return get("id");
 	}
 
+	public void setCId(java.lang.Integer cId) {
+		set("c_id", cId);
+	}
+
+	public java.lang.Integer getCId() {
+		return get("c_id");
+	}
+
 	public void setName(java.lang.String name) {
 		set("name", name);
 	}

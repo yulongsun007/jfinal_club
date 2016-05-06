@@ -2,6 +2,9 @@ package win.yulongsun.jfinal_club.util;
 
 import com.alibaba.druid.util.StringUtils;
 
+import java.util.List;
+
+
 /**
  * Created by yulongsun on 2016/5/5.
  */
@@ -15,5 +18,12 @@ public class ValidateUtils {
             }
         }
         return isNull;
+    }
+
+    public static boolean isListEmpty(List list) {
+        if (list == null && list.size() == 0) {
+            return true;
+        }
+        return false;
     }
 }

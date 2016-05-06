@@ -9,6 +9,8 @@ import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.render.ViewType;
 import win.yulongsun.jfinal_club.controller.HelloController;
 import win.yulongsun.jfinal_club.controller.ManagerController;
+import win.yulongsun.jfinal_club.controller.MemberController;
+import win.yulongsun.jfinal_club.controller.UserController;
 import win.yulongsun.jfinal_club.model._MappingKit;
 
 public class MyConfig extends JFinalConfig {
@@ -21,6 +23,8 @@ public class MyConfig extends JFinalConfig {
     public void configRoute(Routes me) {
         me.add("/hello", HelloController.class);
         me.add("/api/manager", ManagerController.class);
+        me.add("/api/user", UserController.class);
+        me.add("/api/member", MemberController.class);
     }
 
     public void configPlugin(Plugins me) {
