@@ -39,15 +39,21 @@ public class Response {
             case ErrorCode.ERROR_UN_ENABLE:
                 this.errorMsg = "当前账户未启用";
                 break;
+            case ErrorCode.ERROR_SEND_FAILURE:
+                this.errorMsg = "验证码发送失败";
+                break;
+            case ErrorCode.ADD_FAILURE:
+                this.errorMsg = "添加失败";
+                break;
         }
-        this.result = "";
+        this.result = null;
     }
 
     public void setFailureResponse(String errorMsg, int errorCode) {
         this.error = true;
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
-        this.result = "";
+        this.result = null;
     }
 
     public void setSuccessResponse(Object result) {
@@ -55,6 +61,20 @@ public class Response {
         this.errorCode = 0;
         this.errorMsg = "";
         this.result = result;
+    }
+
+    public void setSuccessResponse() {
+        this.error = false;
+        this.errorCode = 0;
+        this.errorMsg = "";
+        this.result = "";
+    }
+
+    public void setSuccessResponse(String msg) {
+        this.error = false;
+        this.errorCode = 0;
+        this.errorMsg = msg;
+        this.result = "";
     }
 
     public boolean isError() {
@@ -90,11 +110,13 @@ public class Response {
     }
 
     public interface ErrorCode {
-        int REQUEST_NULL     = 1001;
-        int REGISTER_FAILURE = 1002;
-        int USER_NULL        = 1003;
-        int ERROR_PWD        = 1004;
-        int DELETE_FAILURE   = 1005;
-        int ERROR_UN_ENABLE  = 1006;
+        int REQUEST_NULL       = 1001;
+        int REGISTER_FAILURE   = 1002;
+        int USER_NULL          = 1003;
+        int ERROR_PWD          = 1004;
+        int DELETE_FAILURE     = 1005;
+        int ERROR_UN_ENABLE    = 1006;
+        int ERROR_SEND_FAILURE = 1007;
+        int ADD_FAILURE        = 1008;
     }
 }

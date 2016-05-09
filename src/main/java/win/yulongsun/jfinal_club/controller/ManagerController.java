@@ -2,12 +2,15 @@ package win.yulongsun.jfinal_club.controller;
 
 import com.alibaba.druid.wall.violation.ErrorCode;
 import com.jfinal.core.Controller;
+import com.taobao.api.domain.BizResult;
 import win.yulongsun.jfinal_club.model.Club;
 import win.yulongsun.jfinal_club.model.User;
+import win.yulongsun.jfinal_club.util.DayuSMSUtils;
 import win.yulongsun.jfinal_club.util.Response;
 import win.yulongsun.jfinal_club.util.ValidateUtils;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by yulongsun on 2016/4/14.
@@ -83,4 +86,47 @@ public class ManagerController extends Controller {
     }
 
 
+    /*发送验证码*/
+    public void sendVerifyCode() {
+        response = new Response();
+        String  user_mobile = getPara("user_mobile");
+        boolean isNull      = ValidateUtils.validatePara(user_mobile);
+        if (isNull) {
+            response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
+            renderJson(response);
+            return;
+        }
+        int       code      = new Random().nextInt(999999);
+        BizResult bizResult = DayuSMSUtils.sendSms(user_mobile, code);
+        if (bizResult == null || bizResult.getSuccess() == false) {
+            response.setFailureResponse(Response.ErrorCode.ERROR_SEND_FAILURE);
+        } else {
+            response.setSuccessResponse(code);
+        }
+        renderJson(response);
+
+    }
+
+    /*重置密码*/
+    public void resetPwd() {
+        response = new Response();
+        String  user_mobile  = getPara("user_mobile");
+        String  user_new_pwd = getPara("user_new_pwd");
+        boolean isNull       = ValidateUtils.validatePara(user_mobile, user_new_pwd);
+        if (isNull) {
+            response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
+            renderJson(response);
+            return;
+        }
+        List<User> userList = User.dao.findByMobile(user_mobile);
+        if (userList == null || userList.size() == 0) {
+            response.setFailureResponse(Response.ErrorCode.USER_NULL);
+        } else {
+            User user = userList.get(0);
+            user.setPassword(user_new_pwd);
+            user.update();
+            response.setSuccessResponse();
+        }
+        renderJson(response);
+    }
 }

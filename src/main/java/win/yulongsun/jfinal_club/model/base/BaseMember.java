@@ -17,12 +17,12 @@ public abstract class BaseMember<M extends BaseMember<M>> extends Model<M> imple
 		return get("id");
 	}
 
-	public void setCId(java.lang.Integer cId) {
-		set("c_id", cId);
+	public void setAvatar(java.lang.String avatar) {
+		set("avatar", avatar);
 	}
 
-	public java.lang.Integer getCId() {
-		return get("c_id");
+	public java.lang.String getAvatar() {
+		return get("avatar");
 	}
 
 	public void setName(java.lang.String name) {
@@ -41,20 +41,28 @@ public abstract class BaseMember<M extends BaseMember<M>> extends Model<M> imple
 		return get("mobile");
 	}
 
+	public void setScore(java.lang.Integer score) {
+		set("score", score);
+	}
+
+	public java.lang.Integer getScore() {
+		return get("score");
+	}
+
+	public void setAddr(java.lang.String addr) {
+		set("addr", addr);
+	}
+
+	public java.lang.String getAddr() {
+		return get("addr");
+	}
+
 	public void setRank(java.lang.Integer rank) {
 		set("rank", rank);
 	}
 
 	public java.lang.Integer getRank() {
 		return get("rank");
-	}
-
-	public void setCardId(java.lang.Integer cardId) {
-		set("card_id", cardId);
-	}
-
-	public java.lang.Integer getCardId() {
-		return get("card_id");
 	}
 
 	public void setGender(java.lang.Integer gender) {
@@ -65,12 +73,28 @@ public abstract class BaseMember<M extends BaseMember<M>> extends Model<M> imple
 		return get("gender");
 	}
 
-	public void setAddr(java.lang.String addr) {
-		set("addr", addr);
+	public void setCardId(java.lang.String cardId) {
+		set("card_id", cardId);
 	}
 
-	public java.lang.String getAddr() {
-		return get("addr");
+	public java.lang.String getCardId() {
+		return get("card_id");
+	}
+
+	public void setCId(java.lang.Integer cId) {
+		set("c_id", cId);
+	}
+
+	public java.lang.Integer getCId() {
+		return get("c_id");
+	}
+
+	public void setOperatorId(java.lang.Integer operatorId) {
+		set("operator_id", operatorId);
+	}
+
+	public java.lang.Integer getOperatorId() {
+		return get("operator_id");
 	}
 
 	public void setIsEnable(java.lang.Integer isEnable) {
@@ -87,14 +111,6 @@ public abstract class BaseMember<M extends BaseMember<M>> extends Model<M> imple
 
 	public java.util.Date getCreateTime() {
 		return get("create_time");
-	}
-
-	public void setScore(java.lang.Integer score) {
-		set("score", score);
-	}
-
-	public java.lang.Integer getScore() {
-		return get("score");
 	}
 
 }
