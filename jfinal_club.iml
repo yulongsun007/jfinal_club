@@ -26,16 +26,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: com.jfinal:jfinal:2.2" level="project" />
     <orderEntry type="library" name="Maven: cglib:cglib-nodep:3.1" level="project" />
-    <orderEntry type="library" name="Maven: com.alibaba:druid:1.0.18" level="project" />
-    <orderEntry type="module-library">
-      <library name="Maven: com.alibaba:jconsole:1.8.0">
-        <CLASSES>
-          <root url="jar://C:/Tools/jdk1.8/jre/../lib/jconsole.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="module-library">
       <library name="Maven: com.alibaba:tools:1.8.0">
         <CLASSES>
@@ -47,5 +37,7 @@
     </orderEntry>
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.38" level="project" />
     <orderEntry type="library" name="cos-26Dec2008" level="project" />
+    <orderEntry type="library" name="taobao-sdk-java-auto_1455327007611-20160508" level="project" />
+    <orderEntry type="library" name="druid-1.0.5" level="project" />
   </component>
 </module>
