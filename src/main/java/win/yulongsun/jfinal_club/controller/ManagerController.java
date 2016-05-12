@@ -1,6 +1,5 @@
 package win.yulongsun.jfinal_club.controller;
 
-import com.alibaba.druid.wall.violation.ErrorCode;
 import com.jfinal.core.Controller;
 import com.taobao.api.domain.BizResult;
 import win.yulongsun.jfinal_club.model.Club;
