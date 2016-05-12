@@ -1,17 +1,13 @@
 package win.yulongsun.jfinal_club.controller;
 
-import com.alibaba.druid.wall.violation.ErrorCode;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.upload.UploadFile;
 import win.yulongsun.jfinal_club.model.Member;
-import win.yulongsun.jfinal_club.model.User;
 import win.yulongsun.jfinal_club.util.Response;
 import win.yulongsun.jfinal_club.util.ValidateUtils;
-
-import java.io.File;
 
 /**
  * Created by yulongsun on 2016/5/5.
@@ -50,14 +46,14 @@ public class MemberController extends Controller {
         String     member_addr        = getPara("member_addr");
         String     member_score       = getPara("member_score");
         String     member_operator_id = getPara("member_operator_id");
-        boolean    isNull             = ValidateUtils.validatePara(member_avatar.getUploadPath(), member_name, member_mobile, member_rank, member_gender, member_card_id, member_c_id, member_addr, member_score, member_operator_id);
+        boolean    isNull             = ValidateUtils.validatePara(member_avatar.getFileName(), member_name, member_mobile, member_rank, member_gender, member_card_id, member_c_id, member_addr, member_score, member_operator_id);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
             return;
         }
         Member member = new Member();
-        member.setAvatar(member_avatar.getUploadPath());
+        member.setAvatar(member_avatar.getFileName());
         member.setName(member_name);
         member.setMobile(member_mobile);
         member.setRank(Integer.parseInt(member_rank));
