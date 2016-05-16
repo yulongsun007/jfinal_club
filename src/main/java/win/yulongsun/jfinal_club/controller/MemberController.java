@@ -116,7 +116,7 @@ public class MemberController extends Controller {
         member.setIsEnable(0);
         boolean isUpdate = member.update();
         if (isUpdate) {
-            response.setSuccessResponse(null);
+            response.setSuccessResponse();
         } else {
             response.setFailureResponse(Response.ErrorCode.DELETE_FAILURE);
         }

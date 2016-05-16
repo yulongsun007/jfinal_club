@@ -34,32 +34,34 @@ public class ManagerController extends Controller {
             return;
         }
 
-        Club club = new Club();
-        club.setScale(Integer.parseInt(club_scale));
-        club.setName(club_name);
-        club.setAddr(club_addr);
-        boolean isClubSave = club.save();
+        List<User> userList = User.dao.findByMobile(user_mobile);
+        if (userList != null & userList.size() < 0) {
+            Club club = new Club();
+            club.setScale(Integer.parseInt(club_scale));
+            club.setName(club_name);
+            club.setAddr(club_addr);
+            club.save();
 
-        Integer id   = club.getId();
-        User    user = new User();
-        user.setMobile(user_mobile);
-        user.setName(user_name);
-        user.setPassword(user_pwd);
-        user.setAddr(club_addr);
-        user.setJobId(String.valueOf(1));
-        user.setCId(id);
-        user.setRId(1);
-        boolean isUserSave = user.save();
-        if (isUserSave && isClubSave) {
-            response.setSuccessResponse(null);
+            Integer id   = club.getId();
+            User    user = new User();
+            user.setMobile(user_mobile);
+            user.setName(user_name);
+            user.setPassword(user_pwd);
+            user.setAddr(club_addr);
+            user.setJobId(String.valueOf(1));
+            user.setCId(id);
+            user.setRId(1);
+            user.save();
+            response.setSuccessResponse();
         } else {
-            response.setFailureResponse(Response.ErrorCode.REGISTER_FAILURE);
+            response.setFailureResponse(Response.ErrorCode.USER_REGISTERED);
         }
         renderJson(response);
 
     }
 
     /*登陆*/
+
     public void login() {
         response = new Response();
         String  user_mobile = getPara("user_mobile");

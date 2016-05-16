@@ -8,6 +8,8 @@ import win.yulongsun.jfinal_club.model.User;
 import win.yulongsun.jfinal_club.util.Response;
 import win.yulongsun.jfinal_club.util.ValidateUtils;
 
+import java.util.List;
+
 /**
  * Created by yulongsun on 2016/5/5.
  */
@@ -51,20 +53,21 @@ public class UserController extends Controller {
             renderJson(response);
             return;
         }
-        User user = new User();
-        user.setMobile(user_mobile);
-        user.setAvatar(user_avatar);
-        user.setPassword(user_pwd);
-        user.setGender(Integer.valueOf(user_gender));
-        user.setAddr(user_addr);
-        user.setJobId(user_job_id);
-        user.setCId(Integer.valueOf(user_c_id));
-        user.setRId(0);
-        boolean isSave = user.save();
-        if (isSave) {
-            response.setSuccessResponse(Response.ErrorCode.ADD_SUCCESS);
+        List<User> userList = User.dao.findByMobile(user_mobile);
+        if (userList.size() < 0) {
+            User user = new User();
+            user.setMobile(user_mobile);
+            user.setAvatar(user_avatar);
+            user.setPassword(user_pwd);
+            user.setGender(Integer.valueOf(user_gender));
+            user.setAddr(user_addr);
+            user.setJobId(user_job_id);
+            user.setCId(Integer.valueOf(user_c_id));
+            user.setRId(0);
+            user.save();
+            response.setSuccessResponse();
         } else {
-            response.setFailureResponse(Response.ErrorCode.ADD_FAILURE);
+            response.setFailureResponse(Response.ErrorCode.USER_REGISTERED);
         }
         renderJson(response);
     }
@@ -98,7 +101,7 @@ public class UserController extends Controller {
         user.setRId(0);
         boolean isUpdate = user.update();
         if (isUpdate) {
-            response.setSuccessResponse(Response.ErrorCode.UPDATE_SUCCESS);
+            response.setSuccessResponse();
         } else {
             response.setFailureResponse(Response.ErrorCode.UPDATE_FAILURE);
         }
@@ -120,7 +123,7 @@ public class UserController extends Controller {
         user.setIsEnable(0);
         boolean isUpdate = user.update();
         if (isUpdate) {
-            response.setSuccessResponse(Response.ErrorCode.DELETE_SUCCESS);
+            response.setSuccessResponse();
         } else {
             response.setFailureResponse(Response.ErrorCode.DELETE_FAILURE);
         }

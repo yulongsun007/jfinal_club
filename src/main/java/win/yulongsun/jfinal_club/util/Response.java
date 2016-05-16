@@ -1,7 +1,5 @@
 package win.yulongsun.jfinal_club.util;
 
-import static javafx.scene.input.KeyCode.T;
-
 /**
  * @Project YulongsunSimple
  * @Packate win.yulongsun.yulongsunlib.bean
@@ -24,8 +22,8 @@ public class Response {
             case ErrorCode.REQUEST_NULL:
                 this.errorMsg = "请求参数不能为空";
                 break;
-            case ErrorCode.REGISTER_FAILURE:
-                this.errorMsg = "用户注册失败";
+            case ErrorCode.USER_REGISTERED:
+                this.errorMsg = "此手机号已注册";
                 break;
             case ErrorCode.USER_NULL:
                 this.errorMsg = "用户不存在";
@@ -33,7 +31,6 @@ public class Response {
             case ErrorCode.ERROR_PWD:
                 this.errorMsg = "密码错误";
                 break;
-
             case ErrorCode.ERROR_UN_ENABLE:
                 this.errorMsg = "当前账户未启用";
                 break;
@@ -58,7 +55,6 @@ public class Response {
             case ErrorCode.DELETE_FAILURE:
                 this.errorMsg = "删除失败";
                 break;
-
             case ErrorCode.QUERY_SUCCESS:
                 this.errorMsg = "查询成功";
                 break;
@@ -70,12 +66,12 @@ public class Response {
         this.result = null;
     }
 
-    public void setFailureResponse(String errorMsg, int errorCode) {
-        this.error = true;
-        this.errorCode = errorCode;
-        this.errorMsg = errorMsg;
-        this.result = null;
-    }
+//    public void setFailureResponse(String errorMsg, int errorCode) {
+//        this.error = true;
+//        this.errorCode = errorCode;
+//        this.errorMsg = errorMsg;
+//        this.result = null;
+//    }
 
     public void setSuccessResponse(Object result) {
         this.error = false;
@@ -91,12 +87,12 @@ public class Response {
         this.result = "";
     }
 
-    public void setSuccessResponse(String msg) {
-        this.error = false;
-        this.errorCode = 0;
-        this.errorMsg = msg;
-        this.result = "";
-    }
+//    public void setSuccessResponse(String msg) {
+//        this.error = false;
+//        this.errorCode = 0;
+//        this.errorMsg = msg;
+//        this.result = "";
+//    }
 
     public boolean isError() {
         return error;
@@ -132,7 +128,7 @@ public class Response {
 
     public interface ErrorCode {
         int REQUEST_NULL       = 1001;
-        int REGISTER_FAILURE   = 1002;
+        int USER_REGISTERED    = 1002;
         int USER_NULL          = 1003;
         int ERROR_PWD          = 1004;
         int ERROR_UN_ENABLE    = 1006;

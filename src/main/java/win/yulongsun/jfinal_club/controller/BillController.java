@@ -7,12 +7,14 @@ import win.yulongsun.jfinal_club.util.ValidateUtils;
 
 /**
  * Created by yulongsun on 2016/5/15.
+ * 日结
  */
 public class BillController extends Controller {
     Response response;
 
     /*添加账单*/
     public void addBill() {
+        response = new Response();
         String  user_id        = getPara("user_id");
         String  user_order_num = getPara("user_order_num");
         String  user_profit    = getPara("user_profit_in");
@@ -32,7 +34,7 @@ public class BillController extends Controller {
         bill.setCreateBy(Integer.valueOf(user_id));
         boolean isSave = bill.save();
         if (isSave) {
-            response.setSuccessResponse(Response.ErrorCode.ADD_SUCCESS);
+            response.setSuccessResponse();
         } else {
             response.setFailureResponse(Response.ErrorCode.ADD_FAILURE);
         }

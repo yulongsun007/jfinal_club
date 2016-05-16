@@ -31,7 +31,7 @@ public class OrderController extends Controller {
         order.setCreateBy(Integer.valueOf(user_id));
         boolean isSave = order.save();
         if (isSave) {
-            response.setSuccessResponse(Response.ErrorCode.ADD_SUCCESS);
+            response.setSuccessResponse();
         } else {
             response.setFailureResponse(Response.ErrorCode.ADD_FAILURE);
         }
