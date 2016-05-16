@@ -5,6 +5,7 @@
 .mtj.tmp/
 
 # Package Files #
+/jfinal_club.iml
 *.war
 *.ear
 

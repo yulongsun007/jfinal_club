@@ -2,6 +2,7 @@ package win.yulongsun.jfinal_club.controller;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import sun.security.provider.MD5;
 import win.yulongsun.jfinal_club.model.Club;
 import win.yulongsun.jfinal_club.model.User;
 import win.yulongsun.jfinal_club.util.Response;
@@ -20,15 +21,15 @@ public class UserController extends Controller {
         response = new Response();
         //会所id
         String  c_id      = getPara("c_id");
-        int     page_num  = getParaToInt("page_num");
-        int     page_size = getParaToInt("page_size");
-        boolean isNull    = ValidateUtils.validatePara(c_id, String.valueOf(page_num), String.valueOf(page_size));
+        String  page_num  = getPara("page_num");
+        String  page_size = getPara("page_size");
+        boolean isNull    = ValidateUtils.validatePara(c_id, page_num, page_size);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
             return;
         }
-        Page<User> userPage = User.dao.paginateByCId(c_id, page_num, page_size);
+        Page<User> userPage = User.dao.paginateByCId(c_id, Integer.valueOf(page_num), Integer.valueOf(page_size));
         response.setSuccessResponse(userPage.getList());
         renderJson(response);
     }
@@ -37,22 +38,71 @@ public class UserController extends Controller {
     /*添加店员*/
     public void addUser() {
         response = new Response();
-        String user_mobile = getPara("user_mobile");
-        String user_pwd    = getPara("user_pwd");
+        String  user_mobile = getPara("user_mobile");
+        String  user_pwd    = getPara("user_pwd");
+        String  user_avatar = getPara("user_avatar");
+        String  user_gender = getPara("user_gender");
+        String  user_addr   = getPara("user_addr");
+        String  user_job_id = getPara("user_job_id");
+        String  user_c_id   = getPara("user_c_id");
+        boolean isNull      = ValidateUtils.validatePara(user_mobile, user_pwd, user_avatar, user_gender, user_addr, user_job_id, user_c_id);
+        if (isNull) {
+            response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
+            renderJson(response);
+            return;
+        }
+        User user = new User();
+        user.setMobile(user_mobile);
+        user.setAvatar(user_avatar);
+        user.setPassword(user_pwd);
+        user.setGender(Integer.valueOf(user_gender));
+        user.setAddr(user_addr);
+        user.setJobId(user_job_id);
+        user.setCId(Integer.valueOf(user_c_id));
+        user.setRId(0);
+        boolean isSave = user.save();
+        if (isSave) {
+            response.setSuccessResponse(Response.ErrorCode.ADD_SUCCESS);
+        } else {
+            response.setFailureResponse(Response.ErrorCode.ADD_FAILURE);
+        }
+        renderJson(response);
     }
 
 
     /*修改店员*/
     public void updateUser() {
         response = new Response();
-        String  user_id = getPara("user_id");
-        boolean isNull  = ValidateUtils.validatePara(user_id);
+        String  user_id     = getPara("user_id");
+        String  user_mobile = getPara("user_mobile");
+        String  user_pwd    = getPara("user_pwd");
+        String  user_avatar = getPara("user_avatar");
+        String  user_gender = getPara("user_gender");
+        String  user_addr   = getPara("user_addr");
+        String  user_job_id = getPara("user_job_id");
+        String  user_c_id   = getPara("user_c_id");
+        boolean isNull      = ValidateUtils.validatePara(user_id, user_mobile, user_pwd, user_avatar, user_gender, user_addr, user_job_id, user_c_id);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
             return;
         }
         User user = User.dao.findById(user_id);
+        user.setMobile(user_mobile);
+        user.setAvatar(user_avatar);
+        user.setPassword(user_pwd);
+        user.setGender(Integer.valueOf(user_gender));
+        user.setAddr(user_addr);
+        user.setJobId(user_job_id);
+        user.setCId(Integer.valueOf(user_c_id));
+        user.setRId(0);
+        boolean isUpdate = user.update();
+        if (isUpdate) {
+            response.setSuccessResponse(Response.ErrorCode.UPDATE_SUCCESS);
+        } else {
+            response.setFailureResponse(Response.ErrorCode.UPDATE_FAILURE);
+        }
+        renderJson(response);
     }
 
 
@@ -70,7 +120,7 @@ public class UserController extends Controller {
         user.setIsEnable(0);
         boolean isUpdate = user.update();
         if (isUpdate) {
-            response.setSuccessResponse(null);
+            response.setSuccessResponse(Response.ErrorCode.DELETE_SUCCESS);
         } else {
             response.setFailureResponse(Response.ErrorCode.DELETE_FAILURE);
         }

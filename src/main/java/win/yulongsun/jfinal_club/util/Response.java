@@ -33,18 +33,39 @@ public class Response {
             case ErrorCode.ERROR_PWD:
                 this.errorMsg = "密码错误";
                 break;
-            case ErrorCode.DELETE_FAILURE:
-                this.errorMsg = "删除失败";
-                break;
+
             case ErrorCode.ERROR_UN_ENABLE:
                 this.errorMsg = "当前账户未启用";
                 break;
             case ErrorCode.ERROR_SEND_FAILURE:
                 this.errorMsg = "验证码发送失败";
                 break;
+            case ErrorCode.ADD_SUCCESS:
+                this.errorMsg = "添加成功";
+                break;
             case ErrorCode.ADD_FAILURE:
                 this.errorMsg = "添加失败";
                 break;
+            case ErrorCode.UPDATE_SUCCESS:
+                this.errorMsg = "修改成功";
+                break;
+            case ErrorCode.UPDATE_FAILURE:
+                this.errorMsg = "修改失败";
+                break;
+            case ErrorCode.DELETE_SUCCESS:
+                this.errorMsg = "删除成功";
+                break;
+            case ErrorCode.DELETE_FAILURE:
+                this.errorMsg = "删除失败";
+                break;
+
+            case ErrorCode.QUERY_SUCCESS:
+                this.errorMsg = "查询成功";
+                break;
+            case ErrorCode.QUERY_FAILURE:
+                this.errorMsg = "查询失败";
+                break;
+
         }
         this.result = null;
     }
@@ -114,9 +135,20 @@ public class Response {
         int REGISTER_FAILURE   = 1002;
         int USER_NULL          = 1003;
         int ERROR_PWD          = 1004;
-        int DELETE_FAILURE     = 1005;
         int ERROR_UN_ENABLE    = 1006;
         int ERROR_SEND_FAILURE = 1007;
-        int ADD_FAILURE        = 1008;
+        ///////
+        int ADD_SUCCESS        = 1008;
+        int ADD_FAILURE        = 1009;
+        ///////
+        int UPDATE_SUCCESS     = 1010;
+        int UPDATE_FAILURE     = 1011;
+        ///////
+        int DELETE_SUCCESS     = 1012;
+        int DELETE_FAILURE     = 1013;
+        ///////
+        int QUERY_SUCCESS      = 1014;
+        int QUERY_FAILURE      = 1015;
+        ///////
     }
 }

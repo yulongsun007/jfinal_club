@@ -41,11 +41,11 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("password");
 	}
 
-	public void setJobId(java.lang.Integer jobId) {
+	public void setJobId(java.lang.String jobId) {
 		set("job_id", jobId);
 	}
 
-	public java.lang.Integer getJobId() {
+	public java.lang.String getJobId() {
 		return get("job_id");
 	}
 
@@ -103,14 +103,6 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 
 	public java.util.Date getCreateTime() {
 		return get("create_time");
-	}
-
-	public void setUsername(java.lang.String username) {
-		set("username", username);
-	}
-
-	public java.lang.String getUsername() {
-		return get("username");
 	}
 
 }

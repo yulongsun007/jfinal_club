@@ -9,12 +9,15 @@ import win.yulongsun.jfinal_club.model.Member;
 import win.yulongsun.jfinal_club.util.Response;
 import win.yulongsun.jfinal_club.util.ValidateUtils;
 
+import java.util.List;
+
 /**
  * Created by yulongsun on 2016/5/5.
  */
 public class MemberController extends Controller {
     Response response;
 
+    /*分页显示会员*/
     public void listMember() {
         response = new Response();
         //会所id
@@ -62,10 +65,10 @@ public class MemberController extends Controller {
         member.setCId(Integer.parseInt(member_c_id));
         member.setAddr(member_addr);
         member.setScore(Integer.parseInt(member_score));
-        member.setOperatorId(Integer.parseInt(member_operator_id));
+        member.setCreateBy(Integer.parseInt(member_operator_id));
         boolean isSave = member.save();
         if (isSave) {
-            response.setSuccessResponse("添加会员成功");
+            response.setSuccessResponse(Response.ErrorCode.ADD_SUCCESS);
         } else {
             response.setFailureResponse(Response.ErrorCode.ADD_FAILURE);
         }
@@ -98,6 +101,7 @@ public class MemberController extends Controller {
 
     }
 
+    /*删除会员*/
     public void deleteMember() {
         response = new Response();
         //会所id
@@ -127,5 +131,20 @@ public class MemberController extends Controller {
     /*消费*/
     public void consume() {
 
+    }
+
+    /*查找会员*/
+    public void queryUser() {
+        String  member_name    = getPara("member_name");
+        String  member_club_id = getPara("member_club_id");
+        boolean isNull         = ValidateUtils.validatePara(member_name, member_club_id);
+        if (isNull) {
+            response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
+            renderJson(response);
+            return;
+        }
+        List<Member> memberList = Member.dao.findByName(member_name, member_club_id);
+        response.setSuccessResponse(memberList);
+        renderJson(response);
     }
 }

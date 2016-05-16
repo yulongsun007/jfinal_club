@@ -19,8 +19,8 @@ public class _MappingKit {
 		arp.addMapping("bill", "id", Bill.class);
 		arp.addMapping("club", "id", Club.class);
 		arp.addMapping("dict", "id", Dict.class);
-		arp.addMapping("gtsafe_df", "id", GtsafeDf.class);
 		arp.addMapping("member", "id", Member.class);
+		arp.addMapping("order", "id", Order.class);
 		arp.addMapping("user", "id", User.class);
 	}
 }

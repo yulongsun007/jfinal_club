@@ -3,14 +3,13 @@ package win.yulongsun.jfinal_club.config;
 import com.jfinal.config.*;
 import com.jfinal.core.JFinal;
 import com.jfinal.ext.interceptor.Restful;
+import com.jfinal.log.Log4jLogFactory;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.render.ViewType;
-import win.yulongsun.jfinal_club.controller.HelloController;
-import win.yulongsun.jfinal_club.controller.ManagerController;
-import win.yulongsun.jfinal_club.controller.MemberController;
-import win.yulongsun.jfinal_club.controller.UserController;
+import win.yulongsun.jfinal_club.controller.*;
+import win.yulongsun.jfinal_club.model.Order;
 import win.yulongsun.jfinal_club.model._MappingKit;
 
 public class MyConfig extends JFinalConfig {
@@ -21,10 +20,11 @@ public class MyConfig extends JFinalConfig {
     }
 
     public void configRoute(Routes me) {
-        me.add("/hello", HelloController.class);
         me.add("/api/manager", ManagerController.class);
         me.add("/api/user", UserController.class);
         me.add("/api/member", MemberController.class);
+        me.add("/api/bill", BillController.class);
+        me.add("/api/order", OrderController.class);
     }
 
     public void configPlugin(Plugins me) {

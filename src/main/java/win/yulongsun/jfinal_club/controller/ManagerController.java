@@ -46,7 +46,7 @@ public class ManagerController extends Controller {
         user.setName(user_name);
         user.setPassword(user_pwd);
         user.setAddr(club_addr);
-        user.setJobId(1);
+        user.setJobId(String.valueOf(1));
         user.setCId(id);
         user.setRId(1);
         boolean isUserSave = user.save();

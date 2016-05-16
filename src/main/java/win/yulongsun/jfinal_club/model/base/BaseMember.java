@@ -81,6 +81,14 @@ public abstract class BaseMember<M extends BaseMember<M>> extends Model<M> imple
 		return get("card_id");
 	}
 
+	public void setMoney(java.lang.Double money) {
+		set("money", money);
+	}
+
+	public java.lang.Double getMoney() {
+		return get("money");
+	}
+
 	public void setCId(java.lang.Integer cId) {
 		set("c_id", cId);
 	}
@@ -89,20 +97,20 @@ public abstract class BaseMember<M extends BaseMember<M>> extends Model<M> imple
 		return get("c_id");
 	}
 
-	public void setOperatorId(java.lang.Integer operatorId) {
-		set("operator_id", operatorId);
-	}
-
-	public java.lang.Integer getOperatorId() {
-		return get("operator_id");
-	}
-
 	public void setIsEnable(java.lang.Integer isEnable) {
 		set("is_enable", isEnable);
 	}
 
 	public java.lang.Integer getIsEnable() {
 		return get("is_enable");
+	}
+
+	public void setCreateBy(java.lang.Integer createBy) {
+		set("create_by", createBy);
+	}
+
+	public java.lang.Integer getCreateBy() {
+		return get("create_by");
 	}
 
 	public void setCreateTime(java.util.Date createTime) {
