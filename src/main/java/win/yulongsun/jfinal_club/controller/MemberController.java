@@ -1,5 +1,6 @@
 package win.yulongsun.jfinal_club.controller;
 
+import com.alibaba.druid.wall.violation.ErrorCode;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.interceptor.POST;
@@ -20,7 +21,6 @@ public class MemberController extends Controller {
     /*分页显示会员*/
     public void listMember() {
         response = new Response();
-        //会所id
         String  c_id      = getPara("c_id");
         int     page_num  = getParaToInt("page_num");
         int     page_size = getParaToInt("page_size");
@@ -78,8 +78,6 @@ public class MemberController extends Controller {
     /*更新会员*/
     public void updateMember() {
         response = new Response();
-        //会所id
-        response = new Response();
         UploadFile member_id          = getFile("member_id");
         UploadFile member_avatar      = getFile("member_avatar");
         String     member_name        = getPara("member_name");
@@ -125,12 +123,51 @@ public class MemberController extends Controller {
 
     /*充值*/
     public void recharge() {
-
+        response = new Response();
+        String  member_mobile = getPara("member_mobile");
+        String  member_money  = getPara("member_money");
+        boolean isNull        = ValidateUtils.validatePara(member_mobile, member_money);
+        if (isNull) {
+            response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
+            renderJson(response);
+            return;
+        }
+        Member member = Member.dao.findByMobile(member_mobile);
+        if (member != null) {
+            member.setMoney(Double.valueOf(member_money));
+            member.update();
+        } else {
+            response.setFailureResponse(Response.ErrorCode.USER_NULL);
+        }
+        renderJson(response);
     }
 
     /*消费*/
     public void consume() {
-
+        response = new Response();
+        String  member_mobile = getPara("member_mobile");
+        String  member_money  = getPara("member_money");
+        boolean isNull        = ValidateUtils.validatePara(member_mobile, member_money);
+        if (isNull) {
+            response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
+            renderJson(response);
+            return;
+        }
+        Member member = Member.dao.findByMobile(member_mobile);
+        if (member != null) {
+            Double money  = member.getMoney();
+            Double result = money - Double.valueOf(member_money);
+            if (result < 0) {
+                response.setFailureResponse(Response.ErrorCode.MONEY_INADEQUATE);
+            } else {
+                member.setMoney(result);
+                member.update();
+                response.setSuccessResponse();
+            }
+        } else {
+            response.setFailureResponse(Response.ErrorCode.USER_NULL);
+        }
+        renderJson(response);
     }
 
     /*查找会员*/

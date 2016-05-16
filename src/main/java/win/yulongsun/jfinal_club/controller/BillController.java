@@ -32,7 +32,7 @@ public class BillController extends Controller {
         bill.setCreateBy(Integer.valueOf(user_id));
         boolean isSave = bill.save();
         if (isSave) {
-            response.setSuccessResponse(Response.ErrorCode.ADD_SUCCESS);
+            response.setSuccessResponse();
         } else {
             response.setFailureResponse(Response.ErrorCode.ADD_FAILURE);
         }

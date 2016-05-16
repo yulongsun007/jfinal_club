@@ -88,16 +88,16 @@ public class UserController extends Controller {
             return;
         }
         User user = User.dao.findById(user_id);
-        user.setMobile(user_mobile);
-        user.setAvatar(user_avatar);
-        user.setPassword(user_pwd);
-        user.setGender(Integer.valueOf(user_gender));
-        user.setAddr(user_addr);
-        user.setJobId(user_job_id);
-        user.setCId(Integer.valueOf(user_c_id));
-        user.setRId(0);
-        boolean isUpdate = user.update();
-        if (isUpdate) {
+        if (user != null) {
+            user.setMobile(user_mobile);
+            user.setAvatar(user_avatar);
+            user.setPassword(user_pwd);
+            user.setGender(Integer.valueOf(user_gender));
+            user.setAddr(user_addr);
+            user.setJobId(user_job_id);
+            user.setCId(Integer.valueOf(user_c_id));
+            user.setRId(0);
+            user.update();
             response.setSuccessResponse(Response.ErrorCode.UPDATE_SUCCESS);
         } else {
             response.setFailureResponse(Response.ErrorCode.UPDATE_FAILURE);

@@ -1,7 +1,5 @@
 package win.yulongsun.jfinal_club.util;
 
-import static javafx.scene.input.KeyCode.T;
-
 /**
  * @Project YulongsunSimple
  * @Packate win.yulongsun.yulongsunlib.bean
@@ -24,8 +22,8 @@ public class Response {
             case ErrorCode.REQUEST_NULL:
                 this.errorMsg = "请求参数不能为空";
                 break;
-            case ErrorCode.REGISTER_FAILURE:
-                this.errorMsg = "用户注册失败";
+            case ErrorCode.USER_REGISTER:
+                this.errorMsg = "用户已经注册";
                 break;
             case ErrorCode.USER_NULL:
                 this.errorMsg = "用户不存在";
@@ -65,18 +63,21 @@ public class Response {
             case ErrorCode.QUERY_FAILURE:
                 this.errorMsg = "查询失败";
                 break;
+            case ErrorCode.MONEY_INADEQUATE:
+                this.errorMsg = "账户余额不足";
+                break;
 
         }
         this.result = null;
     }
 
-    public void setFailureResponse(String errorMsg, int errorCode) {
-        this.error = true;
-        this.errorCode = errorCode;
-        this.errorMsg = errorMsg;
-        this.result = null;
-    }
-
+    //    public void setFailureResponse(String errorMsg, int errorCode) {
+//        this.error = true;
+//        this.errorCode = errorCode;
+//        this.errorMsg = errorMsg;
+//        this.result = null;
+//    }
+//
     public void setSuccessResponse(Object result) {
         this.error = false;
         this.errorCode = 0;
@@ -91,12 +92,12 @@ public class Response {
         this.result = "";
     }
 
-    public void setSuccessResponse(String msg) {
-        this.error = false;
-        this.errorCode = 0;
-        this.errorMsg = msg;
-        this.result = "";
-    }
+//    public void setSuccessResponse(String msg) {
+//        this.error = false;
+//        this.errorCode = 0;
+//        this.errorMsg = msg;
+//        this.result = "";
+//    }
 
     public boolean isError() {
         return error;
@@ -132,7 +133,7 @@ public class Response {
 
     public interface ErrorCode {
         int REQUEST_NULL       = 1001;
-        int REGISTER_FAILURE   = 1002;
+        int USER_REGISTER      = 1002;
         int USER_NULL          = 1003;
         int ERROR_PWD          = 1004;
         int ERROR_UN_ENABLE    = 1006;
@@ -150,5 +151,6 @@ public class Response {
         int QUERY_SUCCESS      = 1014;
         int QUERY_FAILURE      = 1015;
         ///////
+        int MONEY_INADEQUATE   = 1016;
     }
 }

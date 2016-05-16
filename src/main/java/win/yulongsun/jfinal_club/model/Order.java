@@ -11,6 +11,8 @@ public class Order extends BaseOrder<Order> {
     public static final Order dao = new Order();
 
     public Page<Order> paginateByCId(String c_id, int page_num, int page_size) {
-        return paginate(page_num, page_size, "SELECT *", "FROM `order` WHERE c_id = ? ", c_id);
+        return paginate(page_num, page_size,
+                "SELECT o.id,o.card_id,o.num,o.create_time,u.`name` ",
+                "FROM `order` o LEFT JOIN`user` u ON o.create_by=u.id WHERE o.c_id=? ORDER BY id DESC", c_id);
     }
 }
