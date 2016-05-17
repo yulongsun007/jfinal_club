@@ -20,7 +20,7 @@ public class Response {
         this.errorCode = errorCode;
         switch (errorCode) {
             case ErrorCode.REQUEST_NULL:
-                this.errorMsg = "请求参数不能为空";
+                this.errorMsg = "请求参数错误";
                 break;
             case ErrorCode.USER_REGISTER:
                 this.errorMsg = "用户已经注册";

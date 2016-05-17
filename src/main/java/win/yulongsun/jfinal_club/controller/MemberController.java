@@ -21,16 +21,16 @@ public class MemberController extends Controller {
     /*分页显示会员*/
     public void listMember() {
         response = new Response();
-        String  c_id      = getPara("c_id");
+        String  user_c_id = getPara("user_c_id");
         int     page_num  = getParaToInt("page_num");
         int     page_size = getParaToInt("page_size");
-        boolean isNull    = ValidateUtils.validatePara(c_id, String.valueOf(page_num), String.valueOf(page_size));
+        boolean isNull    = ValidateUtils.validatePara(user_c_id, String.valueOf(page_num), String.valueOf(page_size));
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
             return;
         }
-        Page<Member> memberPage = Member.dao.paginateByCId(c_id, page_num, page_size);
+        Page<Member> memberPage = Member.dao.paginateByCId(user_c_id, page_num, page_size);
         response.setSuccessResponse(memberPage.getList());
         renderJson(response);
     }
@@ -85,11 +85,11 @@ public class MemberController extends Controller {
         String     member_rank        = getPara("member_rank");
         String     member_gender      = getPara("member_gender");
         String     member_card_id     = getPara("member_card_id");
-        String     member_club_id     = getPara("member_club_id");
+        String     member_c_id        = getPara("member_c_id");
         String     member_addr        = getPara("member_addr");
         String     member_score       = getPara("member_score");
         String     member_operator_id = getPara("member_operator_id");
-        boolean    isNull             = ValidateUtils.validatePara(member_avatar.getUploadPath(), member_name, member_mobile, member_rank, member_gender, member_card_id, member_club_id, member_addr, member_score, member_operator_id);
+        boolean    isNull             = ValidateUtils.validatePara(member_avatar.getUploadPath(), member_name, member_mobile, member_rank, member_gender, member_card_id, member_c_id, member_addr, member_score, member_operator_id);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
@@ -103,20 +103,20 @@ public class MemberController extends Controller {
     public void deleteMember() {
         response = new Response();
         //会所id
-        String  m_id   = getPara("m_id");
-        boolean isNull = ValidateUtils.validatePara(m_id);
+        String  member_id = getPara("member_id");
+        boolean isNull    = ValidateUtils.validatePara(member_id);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
             return;
         }
-        Member member = Member.dao.findById(m_id);
-        member.setIsEnable(0);
-        boolean isUpdate = member.update();
-        if (isUpdate) {
+        Member member = Member.dao.findById(member_id);
+        if (member != null) {
+            member.setIsEnable(0);
+            member.update();
             response.setSuccessResponse(null);
         } else {
-            response.setFailureResponse(Response.ErrorCode.DELETE_FAILURE);
+            response.setFailureResponse(Response.ErrorCode.USER_NULL);
         }
         renderJson(response);
     }
@@ -172,15 +172,15 @@ public class MemberController extends Controller {
 
     /*查找会员*/
     public void queryUser() {
-        String  member_name    = getPara("member_name");
-        String  member_club_id = getPara("member_club_id");
-        boolean isNull         = ValidateUtils.validatePara(member_name, member_club_id);
+        String  member_name = getPara("member_name");
+        String  member_c_id = getPara("member_c_id");
+        boolean isNull      = ValidateUtils.validatePara(member_name, member_c_id);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
             return;
         }
-        List<Member> memberList = Member.dao.findByName(member_name, member_club_id);
+        List<Member> memberList = Member.dao.findByName(member_name, member_c_id);
         response.setSuccessResponse(memberList);
         renderJson(response);
     }

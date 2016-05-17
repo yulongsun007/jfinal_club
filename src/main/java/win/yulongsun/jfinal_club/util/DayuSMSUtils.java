@@ -26,7 +26,7 @@ public class DayuSMSUtils {
 
 
     /*修改密码验证码-SMS_1535002*/
-    public static BizResult sendSms(String phone, int code) {
+    public static BizResult sendSms(String phone, int code) throws ApiException {
         TaobaoClient                     client = new DefaultTaobaoClient(HTTP, API_KEY, APP_SECRET);
         AlibabaAliqinFcSmsNumSendRequest req    = new AlibabaAliqinFcSmsNumSendRequest();
         req.setSmsType("normal");
@@ -38,18 +38,9 @@ public class DayuSMSUtils {
         req.setSmsFreeSignName("变更验证");
         req.setSmsTemplateCode("SMS_1535002");
         AlibabaAliqinFcSmsNumSendResponse rsp;
-        try {
-            rsp = client.execute(req);
-            BizResult result = rsp.getResult();
-            return result;
-//            String    body   = rsp.getBody();
-////            System.out.println("rsp==" + rsp);
-////            System.out.println("BizResult=ErrCode:" + result.getErrCode() + ",Model" + result.getModel() + ",Msg" + result.getMsg() + ",Success" + result.getSuccess());
-////            System.out.println("body==" + body.toString());
-        } catch (ApiException e) {
-            e.printStackTrace();
-        }
-        return null;
+        rsp = client.execute(req);
+        BizResult result = rsp.getResult();
+        return result;
     }
 
 //    //暂时没用到
