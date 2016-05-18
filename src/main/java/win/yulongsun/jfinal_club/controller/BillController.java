@@ -5,14 +5,18 @@ import win.yulongsun.jfinal_club.model.Bill;
 import win.yulongsun.jfinal_club.util.Response;
 import win.yulongsun.jfinal_club.util.ValidateUtils;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Created by yulongsun on 2016/5/15.
  */
 public class BillController extends Controller {
     Response response;
 
-    /*添加账单*/
+    /*添加日结*/
     public void addBill() {
+        response = new Response();
         String  user_id        = getPara("user_id");
         String  user_order_num = getPara("user_order_num");
         String  user_profit    = getPara("user_profit_in");
@@ -24,6 +28,17 @@ public class BillController extends Controller {
             renderJson(response);
             return;
         }
+        Bill billLast = Bill.dao.findFirst("SELECT * FROM bill where bill.c_id=? ORDER BY create_time DESC", user_c_id);
+        if (billLast != null) {//有记录
+            Date lastDate = billLast.getCreateTime();
+            int  result   = new Date().getDate() - lastDate.getDate();//17 -16=1 17-17=0
+            if (result == 0) {
+                response.setFailureResponse(Response.ErrorCode.REQUESTED);
+                renderJson(response);
+                return;
+            }
+        }
+
         Bill bill = new Bill();
         bill.setOrderNum(Integer.valueOf(user_order_num));
         bill.setProfitIn(Double.valueOf(user_profit));

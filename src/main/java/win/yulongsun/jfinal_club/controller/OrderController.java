@@ -21,17 +21,16 @@ public class OrderController extends Controller {
         String  user_id       = getPara("user_id");
         String  card_id       = getPara("card_id");
         String  num           = getPara("num");
-        String  member_mobile = getPara("member_mobile");
-        boolean isNull        = ValidateUtils.validatePara(user_c_id, user_id, card_id, num, member_mobile);
+        boolean isNull        = ValidateUtils.validatePara(user_c_id, user_id, card_id, num);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
             return;
         }
-        Member member = Member.dao.findByMobile(member_mobile);
+        Member member = Member.dao.findByCardId(card_id,user_c_id);
         if (member != null) {
             Double money  = member.getMoney();
-            Double result = money - Double.valueOf(num);
+            Double result = money - Double.parseDouble(num);
             if (result < 0) {//余额不足
                 response.setFailureResponse(Response.ErrorCode.MONEY_INADEQUATE);
             } else {
@@ -39,10 +38,10 @@ public class OrderController extends Controller {
                 member.update();
                 //计入
                 Order order = new Order();
-                order.setCId(Integer.valueOf(user_c_id));
-                order.setCardId(Integer.valueOf(card_id));
-                order.setNum(Double.valueOf(num));
-                order.setCreateBy(Integer.valueOf(user_id));
+                order.setCId(Integer.parseInt(user_c_id));
+                order.setCardId(Integer.parseInt(card_id));
+                order.setNum(Double.parseDouble(num));
+                order.setCreateBy(Integer.parseInt(user_id));
                 order.save();
                 response.setSuccessResponse();
             }

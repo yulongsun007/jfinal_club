@@ -134,7 +134,11 @@ public class MemberController extends Controller {
         }
         Member member = Member.dao.findByMobile(member_mobile);
         if (member != null) {
-            member.setMoney(Double.valueOf(member_money));
+            double addMoney    = Double.parseDouble(member_money);
+            double money       = member.getMoney();
+            double resultMoney = addMoney + money;
+            System.out.println("resultMoney=" + resultMoney);
+            member.setMoney(resultMoney);
             member.update();
         } else {
             response.setFailureResponse(Response.ErrorCode.USER_NULL);
@@ -142,36 +146,37 @@ public class MemberController extends Controller {
         renderJson(response);
     }
 
-    /*消费*/
-    public void consume() {
-        response = new Response();
-        String  member_mobile = getPara("member_mobile");
-        String  member_money  = getPara("member_money");
-        boolean isNull        = ValidateUtils.validatePara(member_mobile, member_money);
-        if (isNull) {
-            response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
-            renderJson(response);
-            return;
-        }
-        Member member = Member.dao.findByMobile(member_mobile);
-        if (member != null) {
-            Double money  = member.getMoney();
-            Double result = money - Double.valueOf(member_money);
-            if (result < 0) {
-                response.setFailureResponse(Response.ErrorCode.MONEY_INADEQUATE);
-            } else {
-                member.setMoney(result);
-                member.update();
-                response.setSuccessResponse();
-            }
-        } else {
-            response.setFailureResponse(Response.ErrorCode.USER_NULL);
-        }
-        renderJson(response);
-    }
+//    /*消费*/
+//    public void consume() {
+//        response = new Response();
+//        String  member_mobile = getPara("member_mobile");
+//        String  member_money  = getPara("member_money");
+//        boolean isNull        = ValidateUtils.validatePara(member_mobile, member_money);
+//        if (isNull) {
+//            response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
+//            renderJson(response);
+//            return;
+//        }
+//        Member member = Member.dao.findByMobile(member_mobile);
+//        if (member != null) {
+//            Double money  = member.getMoney();
+//            Double result = money - Double.valueOf(member_money);
+//            if (result < 0) {
+//                response.setFailureResponse(Response.ErrorCode.MONEY_INADEQUATE);
+//            } else {
+//                member.setMoney(result);
+//                member.update();
+//                response.setSuccessResponse();
+//            }
+//        } else {
+//            response.setFailureResponse(Response.ErrorCode.USER_NULL);
+//        }
+//        renderJson(response);
+//    }
 
     /*查找会员*/
-    public void queryUser() {
+    public void queryMember() {
+        response = new Response();
         String  member_name = getPara("member_name");
         String  member_c_id = getPara("member_c_id");
         boolean isNull      = ValidateUtils.validatePara(member_name, member_c_id);

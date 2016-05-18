@@ -66,7 +66,9 @@ public class Response {
             case ErrorCode.MONEY_INADEQUATE:
                 this.errorMsg = "账户余额不足";
                 break;
-
+            case ErrorCode.REQUESTED:
+                this.errorMsg = "今天已提交";
+                break;
         }
         this.result = null;
     }
@@ -152,5 +154,6 @@ public class Response {
         int QUERY_FAILURE      = 1015;
         ///////
         int MONEY_INADEQUATE   = 1016;
+        int REQUESTED          = 1017;
     }
 }
