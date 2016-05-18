@@ -179,7 +179,7 @@ public class MemberController extends Controller {
         response = new Response();
         String  member_name = getPara("member_name");
         String  member_c_id = getPara("member_c_id");
-        boolean isNull      = ValidateUtils.validatePara(member_name, member_c_id);
+        boolean isNull      = ValidateUtils.validatePara(member_c_id);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);

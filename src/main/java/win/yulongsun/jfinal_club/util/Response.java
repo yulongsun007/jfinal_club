@@ -69,6 +69,9 @@ public class Response {
             case ErrorCode.REQUESTED:
                 this.errorMsg = "今天已提交";
                 break;
+            case ErrorCode.CARD_NULL:
+                this.errorMsg = "消费卡不存在";
+                break;
         }
         this.result = null;
     }
@@ -155,5 +158,6 @@ public class Response {
         ///////
         int MONEY_INADEQUATE   = 1016;
         int REQUESTED          = 1017;
+        int CARD_NULL          = 1018;
     }
 }

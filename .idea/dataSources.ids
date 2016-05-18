@@ -12,8 +12,8 @@
       <table id="3" parent="1" name="club"/>
       <table id="4" parent="1" name="dict"/>
       <table id="5" parent="1" name="member"/>
-      <table id="6" parent="1" name="order"/>
-      <table id="7" parent="1" name="user"/>
+      <table id="6" parent="1" name="user"/>
+      <table id="7" parent="1" name="order"/>
       <column id="8" parent="2" name="id">
         <comment>编号</comment>
         <mandatory>1</mandatory>
@@ -27,13 +27,13 @@
       </column>
       <column id="10" parent="2" name="sell_in">
         <comment>销售收入</comment>
-        <data-type>double(16)</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
+        <data-type>double(8,2)</data-type>
+        <default-expression>&apos;0.00&apos;</default-expression>
       </column>
       <column id="11" parent="2" name="profit_in">
         <comment>纯利润</comment>
-        <data-type>double(16)</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
+        <data-type>double(8,2)</data-type>
+        <default-expression>&apos;0.00&apos;</default-expression>
       </column>
       <column id="12" parent="2" name="c_id">
         <data-type>int(11)</data-type>
@@ -164,8 +164,8 @@
       </column>
       <column id="38" parent="5" name="money">
         <comment>账户金额</comment>
-        <data-type>double(16)</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
+        <data-type>double(16,2)</data-type>
+        <default-expression>&apos;0.00&apos;</default-expression>
       </column>
       <column id="39" parent="5" name="c_id">
         <comment>会所id</comment>
@@ -189,125 +189,132 @@
         <data-type>timestamp</data-type>
         <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
       </column>
-      <index id="43" parent="5" name="UNIQUE">
+      <column id="43" parent="5" name="operator_id">
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="44" parent="5" name="UNIQUE">
         <columns>mobile</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="44" parent="5" name="PRIMARY">
+      <key id="45" parent="5" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <key id="45" parent="5" name="UNIQUE">
+      <key id="46" parent="5" name="UNIQUE">
         <columns>mobile</columns>
         <underlying-index>UNIQUE</underlying-index>
       </key>
-      <column id="46" parent="6" name="id">
-        <mandatory>1</mandatory>
-        <data-type>int(10)</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="47" parent="6" name="card_id">
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="48" parent="6" name="num">
-        <data-type>double</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="49" parent="6" name="c_id">
-        <comment>会所编号</comment>
-        <data-type>int(10)</data-type>
-        <default-expression>&apos;-1&apos;</default-expression>
-      </column>
-      <column id="50" parent="6" name="create_by">
-        <data-type>int(10)</data-type>
-      </column>
-      <column id="51" parent="6" name="create_time">
-        <comment>创建时间</comment>
-        <mandatory>1</mandatory>
-        <data-type>timestamp</data-type>
-        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
-      </column>
-      <key id="52" parent="6" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <column id="53" parent="7" name="id">
+      <column id="47" parent="6" name="id">
         <comment>编号</comment>
         <mandatory>1</mandatory>
         <data-type>int(10)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="54" parent="7" name="avatar">
+      <column id="48" parent="6" name="avatar">
         <comment>头像路径</comment>
         <data-type>varchar(255)</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
-      <column id="55" parent="7" name="mobile">
+      <column id="49" parent="6" name="mobile">
         <comment>手机</comment>
         <mandatory>1</mandatory>
         <data-type>varchar(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="56" parent="7" name="password">
+      <column id="50" parent="6" name="password">
         <comment>密码</comment>
         <mandatory>1</mandatory>
         <data-type>varchar(64)</data-type>
       </column>
-      <column id="57" parent="7" name="job_id">
+      <column id="51" parent="6" name="job_id">
         <comment>工号</comment>
         <data-type>varchar(10)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="58" parent="7" name="gender">
+      <column id="52" parent="6" name="gender">
         <comment>性别</comment>
         <data-type>int(1)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="59" parent="7" name="name">
+      <column id="53" parent="6" name="name">
         <comment>用户名</comment>
         <data-type>varchar(20)</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
-      <column id="60" parent="7" name="addr">
+      <column id="54" parent="6" name="addr">
         <comment>地址</comment>
         <data-type>varchar(255)</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
-      <column id="61" parent="7" name="r_id">
+      <column id="55" parent="6" name="r_id">
         <comment>角色编号</comment>
         <mandatory>1</mandatory>
         <data-type>int(10)</data-type>
       </column>
-      <column id="62" parent="7" name="c_id">
+      <column id="56" parent="6" name="c_id">
         <comment>会所编号</comment>
         <mandatory>1</mandatory>
         <data-type>int(10)</data-type>
       </column>
-      <column id="63" parent="7" name="is_enable">
+      <column id="57" parent="6" name="is_enable">
         <comment>是否启用</comment>
         <mandatory>1</mandatory>
         <data-type>int(1)</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="64" parent="7" name="create_time">
+      <column id="58" parent="6" name="create_time">
         <comment>创建时间</comment>
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
       </column>
-      <index id="65" parent="7" name="UNIQUE">
+      <column id="59" parent="6" name="username">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <index id="60" parent="6" name="UNIQUE">
         <columns>mobile</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="66" parent="7" name="PRIMARY">
+      <key id="61" parent="6" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <key id="67" parent="7" name="UNIQUE">
+      <key id="62" parent="6" name="UNIQUE">
         <columns>mobile</columns>
         <underlying-index>UNIQUE</underlying-index>
+      </key>
+      <column id="63" parent="7" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(10)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="64" parent="7" name="card_id">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="65" parent="7" name="num">
+        <comment>消费多少钱</comment>
+        <data-type>double(7,2)</data-type>
+        <default-expression>&apos;0.00&apos;</default-expression>
+      </column>
+      <column id="66" parent="7" name="c_id">
+        <comment>会所编号</comment>
+        <data-type>int(10)</data-type>
+        <default-expression>&apos;-1&apos;</default-expression>
+      </column>
+      <column id="67" parent="7" name="create_by">
+        <data-type>int(10)</data-type>
+      </column>
+      <column id="68" parent="7" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>timestamp</data-type>
+        <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
+      </column>
+      <key id="69" parent="7" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
       </key>
     </database-model>
   </data-source>

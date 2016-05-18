@@ -46,6 +46,7 @@ public class ManagerController extends Controller {
             User    user = new User();
             user.setMobile(user_mobile);
             user.setName(user_name);
+            user.setAvatar("http://img3.imgtn.bdimg.com/it/u=2673973173,2449000084&fm=21&gp=0.jpg");
             user.setPassword(user_pwd);
             user.setAddr(club_addr);
             user.setJobId(String.valueOf(1));

@@ -17,6 +17,6 @@ public class User extends BaseUser<User> {
     }
 
     public Page<User> paginateByCId(String c_id, int page_num, int page_size) {
-        return paginate(page_num, page_size, "SELECT *", "FROM `user` WHERE c_id = ?", c_id);
+        return paginate(page_num, page_size, "SELECT *", "FROM `user` WHERE c_id = ? and is_enable !=0 and job_id !=1", c_id);
     }
 }

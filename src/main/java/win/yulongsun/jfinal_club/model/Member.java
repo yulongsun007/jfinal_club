@@ -13,7 +13,7 @@ public class Member extends BaseMember<Member> {
     public static final Member dao = new Member();
 
     public Page<Member> paginateByCId(String c_id, int page_num, int page_size) {
-        return paginate(page_num, page_size, "SELECT *", "FROM `member` WHERE c_id = ? and c_id !=0", c_id);
+        return paginate(page_num, page_size, "SELECT *", "FROM `member` WHERE c_id = ? and c_id !=0 and is_enable !=0", c_id);
     }
 
     public List<Member> findByName(String member_name, String member_club_id) {

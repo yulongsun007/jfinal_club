@@ -46,7 +46,7 @@ public class OrderController extends Controller {
                 response.setSuccessResponse();
             }
         } else {//用户不存在
-            response.setFailureResponse(Response.ErrorCode.USER_NULL);
+            response.setFailureResponse(Response.ErrorCode.CARD_NULL);
         }
         renderJson(response);
     }
