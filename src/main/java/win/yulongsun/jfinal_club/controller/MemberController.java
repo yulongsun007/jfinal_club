@@ -1,5 +1,6 @@
 package win.yulongsun.jfinal_club.controller;
 
+import com.alibaba.druid.wall.violation.ErrorCode;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.interceptor.POST;
@@ -20,17 +21,16 @@ public class MemberController extends Controller {
     /*分页显示会员*/
     public void listMember() {
         response = new Response();
-        //会所id
-        String  c_id      = getPara("c_id");
+        String  user_c_id = getPara("user_c_id");
         int     page_num  = getParaToInt("page_num");
         int     page_size = getParaToInt("page_size");
-        boolean isNull    = ValidateUtils.validatePara(c_id, String.valueOf(page_num), String.valueOf(page_size));
+        boolean isNull    = ValidateUtils.validatePara(user_c_id, String.valueOf(page_num), String.valueOf(page_size));
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
             return;
         }
-        Page<Member> memberPage = Member.dao.paginateByCId(c_id, page_num, page_size);
+        Page<Member> memberPage = Member.dao.paginateByCId(user_c_id, page_num, page_size);
         response.setSuccessResponse(memberPage.getList());
         renderJson(response);
     }
@@ -78,8 +78,6 @@ public class MemberController extends Controller {
     /*更新会员*/
     public void updateMember() {
         response = new Response();
-        //会所id
-        response = new Response();
         UploadFile member_id          = getFile("member_id");
         UploadFile member_avatar      = getFile("member_avatar");
         String     member_name        = getPara("member_name");
@@ -87,11 +85,11 @@ public class MemberController extends Controller {
         String     member_rank        = getPara("member_rank");
         String     member_gender      = getPara("member_gender");
         String     member_card_id     = getPara("member_card_id");
-        String     member_club_id     = getPara("member_club_id");
+        String     member_c_id        = getPara("member_c_id");
         String     member_addr        = getPara("member_addr");
         String     member_score       = getPara("member_score");
         String     member_operator_id = getPara("member_operator_id");
-        boolean    isNull             = ValidateUtils.validatePara(member_avatar.getUploadPath(), member_name, member_mobile, member_rank, member_gender, member_card_id, member_club_id, member_addr, member_score, member_operator_id);
+        boolean    isNull             = ValidateUtils.validatePara(member_avatar.getUploadPath(), member_name, member_mobile, member_rank, member_gender, member_card_id, member_c_id, member_addr, member_score, member_operator_id);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
@@ -105,45 +103,89 @@ public class MemberController extends Controller {
     public void deleteMember() {
         response = new Response();
         //会所id
-        String  m_id   = getPara("m_id");
-        boolean isNull = ValidateUtils.validatePara(m_id);
+        String  member_id = getPara("member_id");
+        boolean isNull    = ValidateUtils.validatePara(member_id);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
             return;
         }
-        Member member = Member.dao.findById(m_id);
-        member.setIsEnable(0);
-        boolean isUpdate = member.update();
-        if (isUpdate) {
-            response.setSuccessResponse();
+        Member member = Member.dao.findById(member_id);
+        if (member != null) {
+            member.setIsEnable(0);
+            member.update();
+            response.setSuccessResponse(null);
         } else {
-            response.setFailureResponse(Response.ErrorCode.DELETE_FAILURE);
+            response.setFailureResponse(Response.ErrorCode.USER_NULL);
         }
         renderJson(response);
     }
 
     /*充值*/
     public void recharge() {
-
-    }
-
-    /*消费*/
-    public void consume() {
-
-    }
-
-    /*查找会员*/
-    public void queryUser() {
-        String  member_name    = getPara("member_name");
-        String  member_club_id = getPara("member_club_id");
-        boolean isNull         = ValidateUtils.validatePara(member_name, member_club_id);
+        response = new Response();
+        String  member_mobile = getPara("member_mobile");
+        String  member_money  = getPara("member_money");
+        boolean isNull        = ValidateUtils.validatePara(member_mobile, member_money);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
             return;
         }
-        List<Member> memberList = Member.dao.findByName(member_name, member_club_id);
+        Member member = Member.dao.findByMobile(member_mobile);
+        if (member != null) {
+            double addMoney    = Double.parseDouble(member_money);
+            double money       = member.getMoney();
+            double resultMoney = addMoney + money;
+            System.out.println("resultMoney=" + resultMoney);
+            member.setMoney(resultMoney);
+            member.update();
+        } else {
+            response.setFailureResponse(Response.ErrorCode.USER_NULL);
+        }
+        renderJson(response);
+    }
+
+//    /*消费*/
+//    public void consume() {
+//        response = new Response();
+//        String  member_mobile = getPara("member_mobile");
+//        String  member_money  = getPara("member_money");
+//        boolean isNull        = ValidateUtils.validatePara(member_mobile, member_money);
+//        if (isNull) {
+//            response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
+//            renderJson(response);
+//            return;
+//        }
+//        Member member = Member.dao.findByMobile(member_mobile);
+//        if (member != null) {
+//            Double money  = member.getMoney();
+//            Double result = money - Double.valueOf(member_money);
+//            if (result < 0) {
+//                response.setFailureResponse(Response.ErrorCode.MONEY_INADEQUATE);
+//            } else {
+//                member.setMoney(result);
+//                member.update();
+//                response.setSuccessResponse();
+//            }
+//        } else {
+//            response.setFailureResponse(Response.ErrorCode.USER_NULL);
+//        }
+//        renderJson(response);
+//    }
+
+    /*查找会员*/
+    public void queryMember() {
+        response = new Response();
+        String  member_name = getPara("member_name");
+        String  member_c_id = getPara("member_c_id");
+        boolean isNull      = ValidateUtils.validatePara(member_name, member_c_id);
+        if (isNull) {
+            response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
+            renderJson(response);
+            return;
+        }
+        List<Member> memberList = Member.dao.findByName(member_name, member_c_id);
         response.setSuccessResponse(memberList);
         renderJson(response);
     }

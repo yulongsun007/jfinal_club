@@ -1,6 +1,7 @@
 package win.yulongsun.jfinal_club.controller;
 
 import com.jfinal.core.Controller;
+import com.taobao.api.ApiException;
 import com.taobao.api.domain.BizResult;
 import win.yulongsun.jfinal_club.model.Club;
 import win.yulongsun.jfinal_club.model.User;
@@ -35,13 +36,12 @@ public class ManagerController extends Controller {
         }
 
         List<User> userList = User.dao.findByMobile(user_mobile);
-        if (userList != null & userList.size() < 0) {
+        if (userList.isEmpty() || userList.size() < 0) {
             Club club = new Club();
             club.setScale(Integer.parseInt(club_scale));
             club.setName(club_name);
             club.setAddr(club_addr);
             club.save();
-
             Integer id   = club.getId();
             User    user = new User();
             user.setMobile(user_mobile);
@@ -54,14 +54,13 @@ public class ManagerController extends Controller {
             user.save();
             response.setSuccessResponse();
         } else {
-            response.setFailureResponse(Response.ErrorCode.USER_REGISTERED);
+            response.setFailureResponse(Response.ErrorCode.USER_REGISTER);
         }
         renderJson(response);
 
     }
 
     /*登陆*/
-
     public void login() {
         response = new Response();
         String  user_mobile = getPara("user_mobile");
@@ -91,18 +90,24 @@ public class ManagerController extends Controller {
     public void sendVerifyCode() {
         response = new Response();
         String  user_mobile = getPara("user_mobile");
-        boolean isNull      = ValidateUtils.validatePara(user_mobile);
-        if (isNull) {
+        boolean isPhone     = ValidateUtils.isMobilePattern(user_mobile);
+        if (!isPhone) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
             return;
         }
         int       code      = new Random().nextInt(999999);
-        BizResult bizResult = DayuSMSUtils.sendSms(user_mobile, code);
-        if (bizResult == null || bizResult.getSuccess() == false) {
-            response.setFailureResponse(Response.ErrorCode.ERROR_SEND_FAILURE);
-        } else {
-            response.setSuccessResponse(code);
+        BizResult bizResult = null;
+        try {
+            bizResult = DayuSMSUtils.sendSms(user_mobile, code);
+        } catch (ApiException e) {
+//            e.printStackTrace();
+        } finally {
+            if (bizResult == null || bizResult.getSuccess() == false) {
+                response.setFailureResponse(Response.ErrorCode.ERROR_SEND_FAILURE);
+            } else {
+                response.setSuccessResponse(code);
+            }
         }
         renderJson(response);
 

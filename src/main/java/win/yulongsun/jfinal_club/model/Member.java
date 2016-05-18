@@ -17,6 +17,14 @@ public class Member extends BaseMember<Member> {
     }
 
     public List<Member> findByName(String member_name, String member_club_id) {
-        return find("SELECT * FROM member WHERE `name` ='?' AND c_id ='?';", member_name, member_club_id);
+        return find("SELECT * FROM member WHERE `name` like ? AND c_id =?;", "%" + member_name + "%", member_club_id);
+    }
+
+    public Member findByMobile(String member_mobile) {
+        return findFirst("SELECT * FROM member WHERE mobile = ? ;", member_mobile);
+    }
+
+    public Member findByCardId(String card_id, String user_c_id) {
+        return findFirst("SELECT * FROM member WHERE card_id = ? and c_id =?;", card_id, user_c_id);
     }
 }
