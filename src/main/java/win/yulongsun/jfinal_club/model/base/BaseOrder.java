@@ -33,6 +33,14 @@ public abstract class BaseOrder<M extends BaseOrder<M>> extends Model<M> impleme
 		return get("num");
 	}
 
+	public void setType(java.lang.Integer type) {
+		set("type", type);
+	}
+
+	public java.lang.Integer getType() {
+		return get("type");
+	}
+
 	public void setCId(java.lang.Integer cId) {
 		set("c_id", cId);
 	}

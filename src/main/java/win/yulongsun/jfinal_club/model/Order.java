@@ -12,7 +12,7 @@ public class Order extends BaseOrder<Order> {
 
     public Page<Order> paginateByCId(String c_id, int page_num, int page_size) {
         return paginate(page_num, page_size,
-                "SELECT o.id,o.card_id,o.num,o.create_time,u.`name` ",
-                "FROM `order` o LEFT JOIN`user` u ON o.create_by=u.id WHERE o.c_id=? ORDER BY id DESC", c_id);
+                "SELECT o.id,o.card_id,o.num,o.create_time,o.type,u.`name` ",
+                "FROM `order` o LEFT JOIN`member` u ON o.card_id=u.card_id WHERE o.c_id=? ORDER BY id DESC", c_id);
     }
 }

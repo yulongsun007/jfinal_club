@@ -13,6 +13,10 @@ import win.yulongsun.jfinal_club.model.Order;
 import win.yulongsun.jfinal_club.model._MappingKit;
 
 public class MyConfig extends JFinalConfig {
+
+    public static final String HOST="http://115.159.105.144:8080/jfinal_club/upload/";
+//    public static final String HOST="http://127.0.0.1/upload/";
+
     public void configConstant(Constants me) {
         me.setDevMode(true);
         me.setViewType(ViewType.JSP);
@@ -25,6 +29,7 @@ public class MyConfig extends JFinalConfig {
         me.add("/api/member", MemberController.class);
         me.add("/api/bill", BillController.class);
         me.add("/api/order", OrderController.class);
+        me.add("/api/test", TestController.class);
     }
 
     public void configPlugin(Plugins me) {

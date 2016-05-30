@@ -6,7 +6,9 @@ import com.jfinal.core.Controller;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.upload.UploadFile;
+import win.yulongsun.jfinal_club.config.MyConfig;
 import win.yulongsun.jfinal_club.model.Member;
+import win.yulongsun.jfinal_club.model.Order;
 import win.yulongsun.jfinal_club.util.Response;
 import win.yulongsun.jfinal_club.util.ValidateUtils;
 
@@ -56,7 +58,11 @@ public class MemberController extends Controller {
             return;
         }
         Member member = new Member();
-        member.setAvatar(member_avatar.getFileName());
+        if (member_avatar != null) {
+            member.setAvatar(MyConfig.HOST + member_avatar.getFileName());
+        } else {
+            member.setAvatar(MyConfig.HOST + "ic_launcher.jpg");
+        }
         member.setName(member_name);
         member.setMobile(member_mobile);
         member.setRank(Integer.parseInt(member_rank));
@@ -140,6 +146,14 @@ public class MemberController extends Controller {
             System.out.println("resultMoney=" + resultMoney);
             member.setMoney(resultMoney);
             member.update();
+            Order order = new Order();
+            order.setType(0);
+            order.setCId(member.getCId());
+            order.setCardId(Integer.parseInt(member.getCardId()));
+            order.setNum(addMoney);
+            order.setCreateBy(1);
+            order.setType(1);
+            order.save();
         } else {
             response.setFailureResponse(Response.ErrorCode.USER_NULL);
         }

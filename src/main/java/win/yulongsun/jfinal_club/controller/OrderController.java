@@ -42,6 +42,7 @@ public class OrderController extends Controller {
                 order.setCardId(Integer.parseInt(card_id));
                 order.setNum(Double.parseDouble(num));
                 order.setCreateBy(Integer.parseInt(user_id));
+                order.setType(1);
                 order.save();
                 response.setSuccessResponse();
             }

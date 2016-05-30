@@ -121,4 +121,12 @@ public abstract class BaseMember<M extends BaseMember<M>> extends Model<M> imple
 		return get("create_time");
 	}
 
+	public void setOperatorId(java.lang.Integer operatorId) {
+		set("operator_id", operatorId);
+	}
+
+	public java.lang.Integer getOperatorId() {
+		return get("operator_id");
+	}
+
 }

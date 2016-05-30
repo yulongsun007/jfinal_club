@@ -1,8 +1,11 @@
 package win.yulongsun.jfinal_club.controller;
 
 import com.jfinal.core.Controller;
+import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.upload.UploadFile;
 import sun.security.provider.MD5;
+import win.yulongsun.jfinal_club.config.MyConfig;
 import win.yulongsun.jfinal_club.model.Club;
 import win.yulongsun.jfinal_club.model.User;
 import win.yulongsun.jfinal_club.util.Response;
@@ -38,14 +41,21 @@ public class UserController extends Controller {
     /*添加店员*/
     public void addUser() {
         response = new Response();
-        String  user_mobile = getPara("user_mobile");
-        String  user_pwd    = getPara("user_pwd");
-        String  user_avatar = getPara("user_avatar");
-        String  user_gender = getPara("user_gender");
-        String  user_addr   = getPara("user_addr");
-        String  user_job_id = getPara("user_job_id");
-        String  user_c_id   = getPara("user_c_id");
-        boolean isNull      = ValidateUtils.validatePara(user_mobile, user_pwd, user_avatar, user_gender, user_addr, user_job_id, user_c_id);
+        UploadFile user_avatar = getFile("user_avatar");
+        String     user_mobile = getPara("user_mobile");
+        String     user_pwd    = getPara("user_pwd");
+        String     user_gender = getPara("user_gender");
+        String     user_addr   = getPara("user_addr");
+        String     user_job_id = getPara("user_job_id");
+        String     user_c_id   = getPara("user_c_id");
+        if (user_avatar != null) {
+            System.out.println("getFile=" + user_avatar.getFile());//C:/Users/yulongsun/Documents/IDEA/JAVA/jfinal_club/src/main/webapp/upload/10202.jpg
+            System.out.println("getContentType=" + user_avatar.getContentType());//image/jpeg
+            System.out.println("getFileName=" + user_avatar.getFileName());//10202.jpg
+            System.out.println("getUploadPath=" + user_avatar.getUploadPath());//C:/Users/yulongsun/Documents/IDEA/JAVA/jfinal_club/src/main/webapp/upload
+            System.out.println("getOriginalFileName=" + user_avatar.getOriginalFileName());//10202.jpg
+        }
+        boolean isNull = ValidateUtils.validatePara(user_mobile, user_pwd, user_gender, user_addr, user_job_id, user_c_id);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
@@ -53,7 +63,11 @@ public class UserController extends Controller {
         }
         User user = new User();
         user.setMobile(user_mobile);
-        user.setAvatar(user_avatar);
+        if (user_avatar != null) {
+            user.setAvatar(MyConfig.HOST + user_avatar.getFileName());
+        } else {
+            user.setAvatar(MyConfig.HOST + "ic_launcher.jpg");
+        }
         user.setPassword(user_pwd);
         user.setGender(Integer.valueOf(user_gender));
         user.setAddr(user_addr);

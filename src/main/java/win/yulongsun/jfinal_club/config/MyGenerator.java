@@ -20,7 +20,7 @@ public class MyGenerator {
 //	}
 	public static DataSource getDataSource() {
 //		Prop p = PropKit.use("config.txt");
-		C3p0Plugin c3p0Plugin = new C3p0Plugin("jdbc:mysql://120.27.117.76:3306/jfinal_club","root", "root");
+		C3p0Plugin c3p0Plugin = new C3p0Plugin("jdbc:mysql://120.27.117.76:3306/jfinal_club","root", "syl110");
 		c3p0Plugin.start();
 		return c3p0Plugin.getDataSource();
 	}

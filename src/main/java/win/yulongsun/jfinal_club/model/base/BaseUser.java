@@ -105,4 +105,12 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("create_time");
 	}
 
+	public void setUsername(java.lang.String username) {
+		set("username", username);
+	}
+
+	public java.lang.String getUsername() {
+		return get("username");
+	}
+
 }
