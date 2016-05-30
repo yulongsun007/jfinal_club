@@ -49,9 +49,9 @@ public class MemberController extends Controller {
         String     member_card_id     = getPara("member_card_id");
         String     member_c_id        = getPara("member_c_id");
         String     member_addr        = getPara("member_addr");
-        String     member_score       = getPara("member_score");
+//        String     member_score       = getPara("member_score");
         String     member_operator_id = getPara("member_operator_id");
-        boolean    isNull             = ValidateUtils.validatePara(member_avatar.getFileName(), member_name, member_mobile, member_rank, member_gender, member_card_id, member_c_id, member_addr, member_score, member_operator_id);
+        boolean    isNull             = ValidateUtils.validatePara(member_avatar.getFileName(), member_name, member_mobile, member_rank, member_gender, member_card_id, member_c_id, member_addr, member_operator_id);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
             renderJson(response);
@@ -70,7 +70,7 @@ public class MemberController extends Controller {
         member.setCardId(member_card_id);
         member.setCId(Integer.parseInt(member_c_id));
         member.setAddr(member_addr);
-        member.setScore(Integer.parseInt(member_score));
+        member.setScore(0);
         member.setCreateBy(Integer.parseInt(member_operator_id));
         boolean isSave = member.save();
         if (isSave) {
@@ -152,7 +152,7 @@ public class MemberController extends Controller {
             order.setCardId(Integer.parseInt(member.getCardId()));
             order.setNum(addMoney);
             order.setCreateBy(1);
-            order.setType(1);
+            order.setType(0);
             order.save();
         } else {
             response.setFailureResponse(Response.ErrorCode.USER_NULL);

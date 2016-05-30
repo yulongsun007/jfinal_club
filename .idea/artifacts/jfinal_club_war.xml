@@ -3,6 +3,15 @@
     <output-path>$PROJECT_DIR$/target</output-path>
     <root id="archive" name="jfinal_club.war">
       <element id="artifact" artifact-name="jfinal_club:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="druid-1.0.5" />
+          <element id="library" level="project" name="cos-26Dec2008" />
+          <element id="library" level="module" name="Maven: com.alibaba:tools:1.8.0" module-name="jfinal_club" />
+          <element id="library" level="module" name="Maven: com.alibaba:jconsole:1.8.0" module-name="jfinal_club" />
+          <element id="library" level="project" name="c3p0-0.9.5.1" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>

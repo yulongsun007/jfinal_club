@@ -11,6 +11,11 @@
           <element id="library" level="project" name="Maven: cglib:cglib-nodep:3.1" />
           <element id="library" level="project" name="Maven: com.alibaba:druid:1.0.18" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.38" />
+          <element id="library" level="project" name="druid-1.0.5" />
+          <element id="library" level="project" name="cos-26Dec2008" />
+          <element id="library" level="project" name="c3p0-0.9.5.1" />
+          <element id="library" level="module" name="Maven: com.alibaba:jconsole:1.8.0" module-name="jfinal_club" />
+          <element id="library" level="module" name="Maven: com.alibaba:tools:1.8.0" module-name="jfinal_club" />
         </element>
       </element>
       <element id="directory" name="META-INF">

@@ -11,6 +11,8 @@ import win.yulongsun.jfinal_club.model.User;
 import win.yulongsun.jfinal_club.util.Response;
 import win.yulongsun.jfinal_club.util.ValidateUtils;
 
+import java.util.List;
+
 /**
  * Created by yulongsun on 2016/5/5.
  */
@@ -48,6 +50,7 @@ public class UserController extends Controller {
         String     user_addr   = getPara("user_addr");
         String     user_job_id = getPara("user_job_id");
         String     user_c_id   = getPara("user_c_id");
+        String     user_name   = getPara("user_name");
         if (user_avatar != null) {
             System.out.println("getFile=" + user_avatar.getFile());//C:/Users/yulongsun/Documents/IDEA/JAVA/jfinal_club/src/main/webapp/upload/10202.jpg
             System.out.println("getContentType=" + user_avatar.getContentType());//image/jpeg
@@ -55,9 +58,15 @@ public class UserController extends Controller {
             System.out.println("getUploadPath=" + user_avatar.getUploadPath());//C:/Users/yulongsun/Documents/IDEA/JAVA/jfinal_club/src/main/webapp/upload
             System.out.println("getOriginalFileName=" + user_avatar.getOriginalFileName());//10202.jpg
         }
-        boolean isNull = ValidateUtils.validatePara(user_mobile, user_pwd, user_gender, user_addr, user_job_id, user_c_id);
+        boolean isNull = ValidateUtils.validatePara(user_name, user_mobile, user_pwd, user_gender, user_addr, user_job_id, user_c_id);
         if (isNull) {
             response.setFailureResponse(Response.ErrorCode.REQUEST_NULL);
+            renderJson(response);
+            return;
+        }
+        List<User> userList = User.dao.findByMobile(user_mobile);
+        if (userList != null && userList.size() > 0) {
+            response.setFailureResponse(Response.ErrorCode.USER_REGISTER);
             renderJson(response);
             return;
         }
@@ -71,6 +80,7 @@ public class UserController extends Controller {
         user.setPassword(user_pwd);
         user.setGender(Integer.valueOf(user_gender));
         user.setAddr(user_addr);
+        user.setName(user_name);
         user.setJobId(user_job_id);
         user.setCId(Integer.valueOf(user_c_id));
         user.setRId(0);

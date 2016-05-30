@@ -70,7 +70,7 @@ public class BillController extends Controller {
             return;
         }
         //// TODO: 2016/5/18
-        List<Order>                        orders = Order.dao.find("SELECT SUM(num), HOUR (create_time) FROM `order` WHERE TO_DAYS(create_time) = TO_DAYS(NOW()) and c_id =? GROUP BY HOUR (create_time);", user_c_id);
+        List<Order>                        orders = Order.dao.find("SELECT SUM(num), HOUR (create_time) FROM `order` WHERE TO_DAYS(create_time) = TO_DAYS(NOW()) and c_id =? and type=1 GROUP BY HOUR (create_time);", user_c_id);
         ArrayList<HashMap<String, Object>> items  = new ArrayList<HashMap<String, Object>>();
         int                                j      = 0;
         int                                time   = -1;
@@ -103,7 +103,7 @@ public class BillController extends Controller {
             renderJson(response);
             return;
         }
-        List<Order>                        orders = Order.dao.find("select SUM(num),DAY(create_time) from `order` where date_format(create_time,'%Y-%m')=date_format(now(),'%Y-%m') and c_id =?  GROUP BY DAY(create_time);", user_c_id);
+        List<Order>                        orders = Order.dao.find("select SUM(num),DAY(create_time) from `order` where date_format(create_time,'%Y-%m')=date_format(now(),'%Y-%m') and c_id =? and type=1 GROUP BY DAY(create_time);", user_c_id);
         ArrayList<HashMap<String, Object>> items  = new ArrayList<HashMap<String, Object>>();
         int                                j      = 0;
         int                                time   = -1;
@@ -136,7 +136,7 @@ public class BillController extends Controller {
             renderJson(response);
             return;
         }
-        List<Order>                        orders = Order.dao.find("select SUM(num),MONTH(create_time) from `order` where  c_id =? and create_time between date_sub(now(),interval 3 month) and now() GROUP BY MONTH(create_time); ", user_c_id);
+        List<Order>                        orders = Order.dao.find("select SUM(num),MONTH(create_time) from `order` where  c_id =? and create_time between date_sub(now(),interval 3 month) and now() and type=1 GROUP BY MONTH(create_time); ", user_c_id);
         ArrayList<HashMap<String, Object>> items  = new ArrayList<HashMap<String, Object>>();
 
         for (int i = 0; i < orders.size(); i++) {
